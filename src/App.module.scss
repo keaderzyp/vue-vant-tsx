@@ -1,0 +1,14 @@
+body,html{
+	margin: 0;
+	width: 100%;
+	height: 100%;
+}
+.app{
+	background: #eee;
+	width: 100%;
+	height: 100%;
+	:global(.router-pages){
+		width: 100%;
+		height: 100%;
+	}
+}
