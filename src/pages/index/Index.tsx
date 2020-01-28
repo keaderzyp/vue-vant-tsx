@@ -7,12 +7,21 @@ export default class Index extends Vue{
 	
 	private value?:string = 'haha'
 	
+	private test?:string = "testsync"
+	
+	handleChange(msg:any){
+		console.log(msg);
+	}
 	render(){
 		return (
 			<div>
 				{this.name}
 				<input v-model={this.name}/>
-				<Test msg={this.name}  v-model={this.value}></Test>{this.value}
+				<Test msg={this.name} 
+				onChange={this.handleChange}
+				test={this.test}{...{on:{'update:test':(res:any) => {this.test = res}}}}
+				v-model={this.value}></Test>{this.value}
+				{this.test}
 			</div>
 		)
 	}

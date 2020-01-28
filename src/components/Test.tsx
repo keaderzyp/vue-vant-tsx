@@ -9,9 +9,17 @@ export default class Test extends Vue{
 	@Prop({required:false,default:'abcd'})
 	private value?:string;
 	
+	@Prop({required:false,default:''})
+	private test?:string;
+	
 	@Emit('cc')
 	sendValue(val:string){}
 
+	@Emit('update:test')
+	updateTest(val:string){}
+
+	@Emit('change')
+	change(val:string){}
 	@Watch('msg')
 	watchMsg(newVal:string,oldVal:string){
 		console.log(oldVal,newVal)
@@ -22,14 +30,17 @@ export default class Test extends Vue{
 	}
 	handleClick(event:MouseEvent){
 		this.sendValue('lalala')
+		this.change('成功')
+		this.updateTest('chenggong1')
 	}
 	render(){
 		return (
 			<div>
-				{this.msg}
+				msg:{this.msg}
 				<br/>
-				{this.computedMsg}<br/>
-				{this.value}
+				msg计算:{this.computedMsg}<br/>
+				value:{this.value}<br/>
+				test:{this.test}
 				<button onClick={this.handleClick}>点我</button>
 			</div>
 		)

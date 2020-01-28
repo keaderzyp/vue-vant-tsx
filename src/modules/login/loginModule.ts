@@ -1,23 +1,38 @@
-import { Module, VuexModule, Mutation, Action } from 'vuex-module-decorators'
+import { Module,VuexModule, Mutation, Action ,getModule} from 'vuex-module-decorators'
 import store from '@/store';
 import router from '@/router';
 import { getLogin } from '@/apis/login/loginApi';
-
+import BaseModule from '@/modules/baseModule';
 @Module({
 	name: 'LoginModule',
 	namespaced: true,
+	stateFactory: true,
 	dynamic: true,
 	store
 })
-export default class LoginModule extends VuexModule{
+export default class LoginModule extends BaseModule{
 	
-	private username?:string = '';
 	
-	private password?:string = '';
 	
-	private loading?:boolean = false;
+	protected formData?:any={username:'c',password:'d'};
 	
-	private loadingText?:string = '提交中';
+	protected username?:string = 'admin';
+	
+	protected password?:string = '123456';
+	
+	protected loading?:boolean = false;
+	
+	protected loadingText?:string = '提交中';
+	
+	
+	get getFormData(){
+		return this.formData;
+	}
+	
+	@Mutation
+	setFormData(formData:any){
+		this.formData = formData;
+	}
 	
 	get getUsername(){
 		return this.username;
@@ -50,8 +65,11 @@ export default class LoginModule extends VuexModule{
 			password:this.getPassword
 		})
 		this.setLoading(false);
+		
 		if(res.data.ret == 0){
+			
 			router.push('/')
 		}
+		
 	}
 }

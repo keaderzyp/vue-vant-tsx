@@ -16,13 +16,13 @@ Mock.mock("/login",(options: any) => {
 		return returnFunc({
 			ret:0,
 			msg:'登录成功',
-			data:{}
+			data
 		})
 	}else{
 		return returnFunc({
 			ret:1,
 			msg:'用户名或密码错误',
-			data:{}
+			data
 		})
 	}
 })

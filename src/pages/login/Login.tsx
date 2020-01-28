@@ -1,5 +1,7 @@
 import {Vue,Component} from 'vue-property-decorator';
 import '@/modules/login/loginModule';
+import style from './Login.module.scss';
+
 import {
   State,
   Getter,
@@ -14,9 +16,15 @@ export default class Login extends Vue{
 	@LoginModule.Mutation('setUsername') setUsername:any;
 	@LoginModule.Getter('getPassword') getPassword:any;
 	@LoginModule.Mutation('setPassword') setPassword:any;
+	@LoginModule.Getter('getFormData') getFormData:any;
+	@LoginModule.Mutation('setFormData') setFormData:any;
 	@LoginModule.Action('getLogin') getLogin:any;
 	@LoginModule.State('loading') loading:any;
 	@LoginModule.State('loadingText') loadingText:any;
+	created(){
+		console.log(this)
+	}
+	
 	get username(){
 		return this.getUsername;
 	}
@@ -29,19 +37,39 @@ export default class Login extends Vue{
 	}
 	set password(password:string){
 		this.setPassword(password);
+		
+	}
+	set formData(formData:any){
+		this.setFormData(formData)
+	}
+	get formData(){
+		return this.getFormData;
 	}
 	
 	async handleSub(){
+		
 		await this.getLogin();
 	}
 	render(){
 		return (
-			<div class='router-pages'>
-				<van-field v-model={this.username} placeholder='请输入账号' label='账号' />
-				<van-field v-model={this.password} type='password' placeholder='请输入密码' label='密码' />
+			<div class={style['router-pages']}>
+				<van-field v-model={this.formData.username}
+					clearable
+					placeholder='请输入账号' label='账号' />
+				<van-field v-model={this.formData.password}
+				
+					clearable
+					placeholder='请输入账号' label='账号' />
+				<van-field v-model={this.username} 
+					clearable
+					placeholder='请输入账号' label='账号' />
+				<van-field v-model={this.password} 
+					clearable
+					type='password' placeholder='请输入密码' label='密码' />
 				<van-button type='primary' loading={this.loading}
 					onClick={this.handleSub}
-					loadingText={this.loadingText} size='large' >提交</van-button>
+					loadingText={this.loadingText} 
+					size='large' >提交</van-button>
 			</div>
 		)
 	}
