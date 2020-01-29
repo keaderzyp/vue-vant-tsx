@@ -1,5 +1,6 @@
 import {Vue,Component} from 'vue-property-decorator';
 import '@/modules/login/loginModule';
+import '@/modules/commonModule';
 import style from './Login.module.scss';
 
 import {
@@ -10,6 +11,7 @@ import {
   namespace
 } from 'vuex-class'
 const LoginModule = namespace('LoginModule');
+const CommonModule = namespace('CommonModule');
 @Component
 export default class Login extends Vue{
 	@LoginModule.Getter('getUsername') getUsername:any;
@@ -21,6 +23,7 @@ export default class Login extends Vue{
 	@LoginModule.Action('getLogin') getLogin:any;
 	@LoginModule.State('loading') loading:any;
 	@LoginModule.State('loadingText') loadingText:any;
+	@CommonModule.Getter('getUserInfo') getUserInfo:any;
 	created(){
 		console.log(this)
 	}
@@ -46,20 +49,20 @@ export default class Login extends Vue{
 		return this.getFormData;
 	}
 	
-	async handleSub(){
-		
+	async handleSub(){	
 		await this.getLogin();
 	}
 	render(){
 		return (
 			<div class={style['router-pages']}>
+				{this.getUserInfo.username}
+				{this.getUserInfo.password}
 				<van-field v-model={this.formData.username}
 					clearable
-					placeholder='请输入账号' label='账号' />
+					placeholder='请输入账号' label='测试formData.username' />
 				<van-field v-model={this.formData.password}
-				
 					clearable
-					placeholder='请输入账号' label='账号' />
+					placeholder='请输入账号' label='测试formData.password' />
 				<van-field v-model={this.username} 
 					clearable
 					placeholder='请输入账号' label='账号' />
@@ -69,7 +72,7 @@ export default class Login extends Vue{
 				<van-button type='primary' loading={this.loading}
 					onClick={this.handleSub}
 					loadingText={this.loadingText} 
-					size='large' >提交</van-button>
+					size='large' >登录</van-button>
 			</div>
 		)
 	}

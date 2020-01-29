@@ -3,6 +3,8 @@ import store from '@/store';
 import router from '@/router';
 import { getLogin } from '@/apis/login/loginApi';
 import BaseModule from '@/modules/baseModule';
+import CommonModule from '@/modules/commonModule';
+const commonModule = getModule(CommonModule,store);
 @Module({
 	name: 'LoginModule',
 	namespaced: true,
@@ -11,8 +13,6 @@ import BaseModule from '@/modules/baseModule';
 	store
 })
 export default class LoginModule extends BaseModule{
-	
-	
 	
 	protected formData?:any={username:'c',password:'d'};
 	
@@ -67,7 +67,7 @@ export default class LoginModule extends BaseModule{
 		this.setLoading(false);
 		
 		if(res.data.ret == 0){
-			
+			commonModule.setUserInfo(res.data.data);
 			router.push('/')
 		}
 		
