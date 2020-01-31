@@ -1,6 +1,5 @@
 import { Vue, Component } from 'vue-property-decorator';
 import Test from '@/components/Test';
-import '@/modules/commonModule';
 import {
 	State,
 	Mutation,
@@ -8,7 +7,6 @@ import {
 	Action,
 	namespace
 } from 'vuex-class'
-const CommonModule = namespace('CommonModule');
 @Component
 export default class Index extends Vue{
 	
@@ -18,7 +16,9 @@ export default class Index extends Vue{
 	
 	private test?:string = "testsync"
 	
-	@CommonModule.Getter('getUserInfo') getUserInfo?:any;
+	@State('test') testState:any;
+	
+	@Getter('getUserInfo') getUserInfo:any;
 	
 	handleChange(msg:any){
 		console.log(msg);
@@ -26,6 +26,9 @@ export default class Index extends Vue{
 	render(){
 		return (
 			<div>
+			{this.testState}<br/>
+			{this.getUserInfo.username}<br/>
+			{this.getUserInfo.password}<br/>
 				{this.name}
 				<input v-model={this.name}/>
 				<Test msg={this.name} 
@@ -34,8 +37,6 @@ export default class Index extends Vue{
 					v-model={this.value}></Test>
 				{this.value}<br/>
 				{this.test}<br/>
-				{this.getUserInfo.username}
-				{this.getUserInfo.password}
 			</div>
 		)
 	}

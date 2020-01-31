@@ -1,6 +1,5 @@
 import {Vue,Component} from 'vue-property-decorator';
 import '@/modules/login/loginModule';
-import '@/modules/commonModule';
 import style from './Login.module.scss';
 
 import {
@@ -11,7 +10,6 @@ import {
   namespace
 } from 'vuex-class'
 const LoginModule = namespace('LoginModule');
-const CommonModule = namespace('CommonModule');
 @Component
 export default class Login extends Vue{
 	@LoginModule.Getter('getUsername') getUsername:any;
@@ -23,7 +21,10 @@ export default class Login extends Vue{
 	@LoginModule.Action('getLogin') getLogin:any;
 	@LoginModule.State('loading') loading:any;
 	@LoginModule.State('loadingText') loadingText:any;
-	@CommonModule.Getter('getUserInfo') getUserInfo:any;
+	@State('test') test:any;
+	@Mutation('setUserInfo') setUserInfo:any;
+	@Getter('getUserInfo') getUserInfo:any;
+	@Action('commitSetUserInfo') commitSetUserInfo:any;
 	created(){
 		console.log(this)
 	}
@@ -50,13 +51,15 @@ export default class Login extends Vue{
 	}
 	
 	async handleSub(){	
+		await this.commitSetUserInfo({username:'a',password:'b'})
 		await this.getLogin();
 	}
 	render(){
 		return (
 			<div class={style['router-pages']}>
-				{this.getUserInfo.username}
-				{this.getUserInfo.password}
+				{this.test}<br/>
+				{this.getUserInfo.username}<br/>
+				{this.getUserInfo.password}<br/>
 				<van-field v-model={this.formData.username}
 					clearable
 					placeholder='请输入账号' label='测试formData.username' />

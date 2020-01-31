@@ -2,5 +2,5 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 Vue.use(Vuex)
-
-export default new Vuex.Store<any>({})
+import CommonModule from '@/modules/commonModule';
+export default new Vuex.Store<any>(CommonModule)

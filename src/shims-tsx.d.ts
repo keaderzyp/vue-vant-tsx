@@ -9,8 +9,15 @@ declare global {
     interface IntrinsicElements {
       [elem: string]: any
     }
+	
+  }
+  namespace TS{
+	  interface CommonModule {
+	    commit:any
+	  }
   }
 }
+
 declare module "vue/types/options" {
 
   interface ComponentOptions<V extends Vue> {
@@ -18,4 +25,5 @@ declare module "vue/types/options" {
     ref?: string;
 
   }
+  
 }

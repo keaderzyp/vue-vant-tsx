@@ -59,6 +59,7 @@ export default class LoginModule extends BaseModule{
 	
 	@Action
 	async getLogin(){
+		
 		this.setLoading(true);
 		let res = await getLogin({
 			username:this.getUsername,
@@ -67,6 +68,7 @@ export default class LoginModule extends BaseModule{
 		this.setLoading(false);
 		
 		if(res.data.ret == 0){
+			commonModule.setTest('bbb');
 			commonModule.setUserInfo(res.data.data);
 			router.push('/')
 		}
