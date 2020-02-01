@@ -11,11 +11,6 @@ declare global {
     }
 	
   }
-  namespace TS{
-	  interface CommonModule {
-	    commit:any
-	  }
-  }
 }
 
 declare module "vue/types/options" {

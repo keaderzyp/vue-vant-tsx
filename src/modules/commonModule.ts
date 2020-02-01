@@ -6,6 +6,7 @@ import BaseModule from '@/modules/baseModule';
 })
 export default class CommonModule extends BaseModule{
 	
+	[propName:string]:any
 	conferences: Array<any> = []
 	events: Array<any> = []
 	
