@@ -16,9 +16,9 @@ export default class Index extends Vue{
 	
 	private test?:string = "testsync"
 	
-	@State('test') testState:any;
+	@State('test') testState?:any;
 	
-	@Getter('getUserInfo') getUserInfo:any;
+	@Getter('getUserInfo') getUserInfo?:any;
 	
 	handleChange(msg:any){
 		console.log(msg);

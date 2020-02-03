@@ -1,5 +1,5 @@
 import {Vue,Component} from 'vue-property-decorator';
-import '@/modules/login/loginModule';
+import './models/login';
 import style from './Login.module.scss';
 
 import {
@@ -9,7 +9,7 @@ import {
   Mutation,
   namespace
 } from 'vuex-class'
-const LoginModule = namespace('LoginModule');
+const LoginModule = namespace('login');
 @Component
 export default class Login extends Vue{
 	@LoginModule.Getter('getUsername') getUsername:any;
@@ -28,20 +28,20 @@ export default class Login extends Vue{
 	created(){
 		console.log(this)
 	}
-	
+
 	get username(){
 		return this.getUsername;
 	}
 	set username(username:string){
 		this.setUsername(username);
 	}
-	
+
 	get password(){
 		return this.getPassword;
 	}
 	set password(password:string){
 		this.setPassword(password);
-		
+
 	}
 	set formData(formData:any){
 		this.setFormData(formData)
@@ -49,8 +49,8 @@ export default class Login extends Vue{
 	get formData(){
 		return this.getFormData;
 	}
-	
-	async handleSub(){	
+
+	async handleSub(){
 		await this.commitSetUserInfo({username:'a',password:'b'})
 		await this.getLogin();
 	}
@@ -66,15 +66,15 @@ export default class Login extends Vue{
 				<van-field v-model={this.formData.password}
 					clearable
 					placeholder='请输入账号' label='测试formData.password' />
-				<van-field v-model={this.username} 
+				<van-field v-model={this.username}
 					clearable
 					placeholder='请输入账号' label='账号' />
-				<van-field v-model={this.password} 
+				<van-field v-model={this.password}
 					clearable
 					type='password' placeholder='请输入密码' label='密码' />
 				<van-button type='primary' loading={this.loading}
 					onClick={this.handleSub}
-					loadingText={this.loadingText} 
+					loadingText={this.loadingText}
 					size='large' >登录</van-button>
 			</div>
 		)
